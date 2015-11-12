@@ -1,0 +1,32 @@
+<input type="file" id="fileinput" />
+<p><input type="text" id="filename" value="file name"></p>
+<p><textarea id="mytext"></textarea></p>
+<script type="text/javascript">
+  function readSingleFile(evt) {
+    //Retrieve the first (and only!) File from the FileList object
+    var f = evt.target.files[0]; 
+
+    if (f) {
+      var r = new FileReader();
+      r.onload = function(e) { 
+	     var contents = e.target.result;
+        //if (f.type = "text/plain"){
+         var name = f.name
+         document.getElementById('mytext').value = contents;
+         document.getElementById('filename').value = name;
+        
+        alert( "Got the file.n" 
+              +"name: " + f.name + "n"
+              +"type: " + f.type + "n"
+              +"size: " + f.size + " bytesn"
+              + "starts with: " + contents.substr(1, contents.indexOf("n"))
+        );  
+      }
+      r.readAsText(f);
+    } else { 
+      alert("Failed to load file");
+    }
+  }
+
+  document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
+</script>
