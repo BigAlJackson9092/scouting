@@ -317,14 +317,19 @@ window.onload = function () { //When window loads do this, gets all data from lo
     //# ALL Range Inputs should have this code!
          
     //### Removes All User Input, blank form
-        var allInputs = document.getElementsByTagName("input");
+        var allInputs = document.getElementsByTagName("input")
+        , allTextAreas = document.getElementsByTagName("textarea")
         for (var i = 0; i < allInputs.length; i++){
             if(allInputs[i].type == "radio" || allInputs[i].type == "checkbox"){
                 allInputs[i].checked = false;
             }else if (allInputs[i].type == "number" || allInputs[i].type == "text"){
                 allInputs[i].value = null;
             }
-        }            
+        }for (var i = 0; i < allTextAreas.length; i++){
+            allTextAreas[i].value = null;
+        }
+        
+                    
     
 }
 
