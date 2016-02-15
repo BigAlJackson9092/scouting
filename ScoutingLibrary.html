@@ -375,6 +375,7 @@ $("MainFormID").addEventListener("submit", function(event) { //event listener fo
      newButton.type= "button"; 
      newButton.value= dataToExport;
      newButton.onclick = importQR; //when you click the button it shows the QR code
+     document.body.appendChild(document.createElement("p"));
      document.body.appendChild(newButton);
 }, false); //============ END OF SUBMIT FUNCTION ========
 
