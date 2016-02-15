@@ -246,7 +246,7 @@ input[type=range]:focus::-ms-fill-upper {
     
     
 <!-- TEXT AREA INPUT -->
-    <p><textarea id="TextAreaID" cols="30" rows="7" maxlength="140" wrap="soft" style="resize:none;"></textarea>Max:140 
+    <p><textarea id="TextAreaID" cols="30" rows="7" maxlength="140" wrap="soft" style="resize:none;"></textarea></p><p>Max:140 
     Characters</p>
     
 <!-- Text Input -->
@@ -270,6 +270,7 @@ input[type=range]:focus::-ms-fill-upper {
     <div id="qrcode"></div>
     
 </form>
+<br></br>
 <p>
 <input type="button" onclick="window.location.reload()" value="Reload"/>
 </p>
@@ -310,9 +311,10 @@ window.onload = function () { //When window loads do this, gets all data from lo
         button.onclick = importQR; //creates event handler for when the button is clicked, calls another function
         document.body.appendChild(document.createElement("p"));//adds a seperator.
         document.body.appendChild(button); //adds the button to the bottom
-    }
+    } //end for loop @localStorage.length
        
     //### DEFAULT FORM VALUES GO HERE ###   
+        document.getElementById("qrcode").style.display="none" // hides the QRCode div
         document.getElementById("RangeInputID").value = 0; //sets Range Input to a default value.
     //# ALL Range Inputs should have this code!
          
@@ -328,10 +330,8 @@ window.onload = function () { //When window loads do this, gets all data from lo
         }for (var i = 0; i < allTextAreas.length; i++){
             allTextAreas[i].value = null;
         }
-        
-                    
-    
-}
+       
+} //end of window.onload
 
 
 
@@ -362,6 +362,7 @@ $("MainFormID").addEventListener("submit", function(event) { //event listener fo
       var dataToExport= "(\"" + arrayToExport.join("\",\"") + "\")"; //formats to CSV
      
     QR.clear(); //clears QR code div
+    document.getElementById("qrcode").style.display="block"
     QR.makeCode(dataToExport); //Uses QR code generator at top of this code
     //document.getElementById("OutputLabelID").innerHTML = dataToExport;
              //For Demonstrations Only, shows correct data transfer
@@ -370,25 +371,28 @@ $("MainFormID").addEventListener("submit", function(event) { //event listener fo
     localStorage.setItem(storageKey, dataToExport); //creates or sets the data to store for later use
     //local storage is used to make buttons when user opens the page, it creates buttons for all entries so they can scan QR later
     
-    var newButton= document.createElement("input"); //creates a new button at the bottom when user submits data
-        newButton.type= "button"; 
-        newButton.value= dataToExport;
-        newButton.onclick = importQR;
-        
+    var newButton = document.createElement("input"); //creates a new button at the bottom when user submits data
+     newButton.type= "button"; 
+     newButton.value= dataToExport;
+     newButton.onclick = importQR; //when you click the button it shows the QR code
+     document.body.appendChild(newButton);
 }, false); //============ END OF SUBMIT FUNCTION ========
 
 }(self)) //============ END OF MAIN FUNCTION ========
     
 function importQR() { //function called when storage buttons are clicked
     QR.clear();
+    document.getElementById("qrcode").style.display="block"
     QR.makeCode(localStorage.getItem(this.value)) //'this' refers to the button that calls this.
         //the value is the related key in localstorage.
 }
     //clears local storage, alerts user before clearing, TESTING ONLY, if users can do this they will!
 function ClearStorage(){
      var choice= confirm("Do you want to clear your local storage? WARNING: This will remove all your stored data")
-        if (choice==true) 
+        if (choice==true){
             localStorage.clear();
+            window.location.reload()
+        }
 }
     //Shows or Hides div based on checkbox... Gets the checkbox that was checked or uncheked and the div to hide or show
 function showHideHiddenDiv(element, divID){ //called by onclick event in HTML code
