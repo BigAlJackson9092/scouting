@@ -168,41 +168,7 @@ input,input:focus,input[type=range]:focus{outline:0}body{padding-top:1px;padding
 
 
 
-var QR = new QRCode("qrcode", {width:300, height:300});
-    //instantiates QR code, uses script at top of page, max width/height for phones should be 300
-    //sets 
-window.onload = function () { //When window loads do this, gets all data from localstorage and makes buttons for them  
-                              //When buttons are clicked they will show an old QR code
-    for (i = 0; i < localStorage.length; i++) { //for all items in local storage
-        var button = document.createElement("input"); //creates an input tag
-        button.type = "button"; //specifies it's type is a button
-        button.value = localStorage.key(i); //Makes it display the key it is stored under
-        button.onclick = importQR; //creates event handler for when the button is clicked, calls another function
-        document.body.appendChild(document.createElement("p"));//adds a seperator.
-        document.body.appendChild(button); //adds the button to the bottom
-    } //end for loop @localStorage.length
-       
-    //### DEFAULT FORM VALUES GO HERE ###   
-        document.getElementById("qrcode").style.display="none" // hides the QRCode div
-    //# ALL Range Inputs should have this code!
-         
-    //### Removes All User Input, blank form
-                var allInputs = document.getElementsByTagName("input")
-        , allTextAreas = document.getElementsByTagName("textarea")
-        for (var i = 0; i < allInputs.length; i++){
-            if(allInputs[i].type == "radio" || allInputs[i].type == "checkbox"){
-                allInputs[i].checked = false;
-            }else if (allInputs[i].type == "number" || allInputs[i].type == "text"){
-                allInputs[i].value = null;
-            }else if (allInputs[i].type == "range"){
-                allInputs[i].value = 0;
-            }
-        }for (var i = 0; i < allTextAreas.length; i++){
-            allTextAreas[i].value = null;
-        }
-} //end of window.onload
-
-
+var QR=new QRCode("qrcode",{width:300,height:300});window.onload=function(){for(o=0;o<localStorage.length;o++){var e=document.createElement("input");e.type="button",e.value=localStorage.key(o),e.onclick=importQR,document.body.appendChild(document.createElement("p")),document.body.appendChild(e)}document.getElementById("qrcode").style.display="none";for(var t=document.getElementsByTagName("input"),n=document.getElementsByTagName("textarea"),o=0;o<t.length;o++)"radio"==t[o].type||"checkbox"==t[o].type?t[o].checked=!1:"number"==t[o].type||"text"==t[o].type?t[o].value=null:"range"==t[o].type&&(t[o].value=0);for(var o=0;o<n.length;o++)n[o].value=null};
 
 (function(view) { //=========== MAIN FUNCTION when page is viewed it runs this ===========
 "use strict";
@@ -250,28 +216,6 @@ $("MainFormID").addEventListener("submit", function(event) { //event listener fo
 
 }(self)) //============ END OF MAIN FUNCTION ========
     
-function importQR() { //function called when storage buttons are clicked
-    QR.clear();
-    document.getElementById("qrcode").style.display="block"
-    QR.makeCode(localStorage.getItem(this.value)) //'this' refers to the button that calls this.
-        //the value is the related key in localstorage.
-}
-    //clears local storage, alerts user before clearing, TESTING ONLY, if users can do this they will!
-function ClearStorage(){
-     var choice= confirm("Do you want to clear your local storage? WARNING: This will remove all your stored data")
-        if (choice==true){
-            localStorage.clear();
-            window.location.reload()
-        }
-}
-    //Shows or Hides div based on checkbox... Gets the checkbox that was checked or uncheked and the div to hide or show
-function showHideHiddenDiv(element, divID){ //called by onclick event in HTML code
-    //ex <input type="checkbox" id="exampleCheckboxID" onclick="showHideHiddenDiv(this,'exampleDivID')"
-    if (element.checked==true){
-      document.getElementById(divID).style.display="block"
-    }else{
-        document.getElementById(divID).style.display="none"
-    }
-}
+function importQR(){QR.clear(),document.getElementById("qrcode").style.display="block",QR.makeCode(localStorage.getItem(this.value))}function ClearStorage(){var e=confirm("Do you want to clear your local storage? WARNING: This will remove all your stored data");1==e&&(localStorage.clear(),window.location.reload())}function showHideHiddenDiv(e,o){1==e.checked?document.getElementById(o).style.display="block":document.getElementById(o).style.display="none"}
 
 </script>
