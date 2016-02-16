@@ -184,22 +184,22 @@ window.onload = function () { //When window loads do this, gets all data from lo
        
     //### DEFAULT FORM VALUES GO HERE ###   
         document.getElementById("qrcode").style.display="none" // hides the QRCode div
-        document.getElementById("RangeInputID").value = 0; //sets Range Input to a default value.
     //# ALL Range Inputs should have this code!
          
     //### Removes All User Input, blank form
-        var allInputs = document.getElementsByTagName("input")
+                var allInputs = document.getElementsByTagName("input")
         , allTextAreas = document.getElementsByTagName("textarea")
         for (var i = 0; i < allInputs.length; i++){
             if(allInputs[i].type == "radio" || allInputs[i].type == "checkbox"){
                 allInputs[i].checked = false;
             }else if (allInputs[i].type == "number" || allInputs[i].type == "text"){
                 allInputs[i].value = null;
+            }else if (allInputs[i].type == "range"){
+                allInputs[i].value = 0;
             }
         }for (var i = 0; i < allTextAreas.length; i++){
             allTextAreas[i].value = null;
         }
-       
 } //end of window.onload
 
 
